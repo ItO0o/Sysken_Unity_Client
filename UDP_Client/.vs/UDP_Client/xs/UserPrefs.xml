@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{8BAA0240-B4D4-E4C0-23D1-B660926EEC81}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/IP_Input.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UDP_Client.cs">
     <Files>
       <File FileName="Assets/Scripts/UDP_Client.cs" Line="234" Column="43" />
-      <File FileName="Assets/Scripts/Stop_Client.cs" Line="8" Column="3" />
+      <File FileName="Assets/Scripts/Stop_Client.cs" />
       <File FileName="Assets/Scripts/IP_Input.cs" Line="11" Column="1" />
     </Files>
     <Pads>
@@ -15,7 +15,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e2c31c08-62f1-4375-865f-853b12d4c1e1" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0bf49e77-153d-4027-80f3-c52c433a1263" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

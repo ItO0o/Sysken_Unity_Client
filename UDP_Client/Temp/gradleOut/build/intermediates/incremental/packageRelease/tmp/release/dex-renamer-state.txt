@@ -1,0 +1,4 @@
+#Mon Nov 04 14:01:06 JST 2019
+base.0=/Users/k17014kk/Unity/Sysken_Unity_Client/UDP_Client/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex

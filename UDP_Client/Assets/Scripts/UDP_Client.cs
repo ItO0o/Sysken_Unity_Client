@@ -20,14 +20,20 @@ public struct PositionSync {
     public int ID;
 }
 
+public struct NetObj {
+    public GameObject obj;
+    public int ID;
+    public Vector3 followVec;
+}
+
 public class UDP_Client : MonoBehaviour {
     List<PositionSync> positionQue = new List<PositionSync>();
 
-    List<GameObject> netObj = new List<GameObject>();
+    List<NetObj> netObjs = new List<NetObj>();
 
     int ID;
 
-    int tickRate = 1;
+    int tickRate = 5;
 
     EndPoint_Connection m_connection;
     private const int firstContact_port = 50764;
@@ -104,13 +110,16 @@ public class UDP_Client : MonoBehaviour {
             SendPosition(obj.transform.position);
             cnt = 0;
         }
-        ReceivePosition();
         PositionSync();
         cnt++;
     }
 
     // Update is called once per frame
     void Update() {
+        for (int i = 0;i < netObjs.Count;i++) {
+           NetObj temp = netObjs[i];
+            temp.obj.transform.position = Vector3.Lerp(temp.obj.transform.position,temp.followVec,0.2f);
+        }
     }
 
     void Loop() {
@@ -200,10 +209,15 @@ public class UDP_Client : MonoBehaviour {
 
         int i = 0;
         bool t = false;
-        while (i < netObj.Count) {
-            if (netObj[i].name.Equals(temp.ID.ToString())) {
+        while (i < netObjs.Count) {
+            if (netObjs[i].ID == temp.ID) {
                 if (ID != temp.ID) {
-                    netObj[i].transform.position = temp.position;
+                    //netObjs[i].obj.transform.position = Vector3.Lerp(netObjs[i].obj.transform.position, temp.position, 0.5f);
+                    //netObj[i].transform.position = temp.position;
+                    //netObjs[i].followVec = temp.position;
+                    NetObj netObj = netObjs[i];
+                    netObj.followVec = temp.position;
+                    netObjs[i] = netObj;
                 }
 
                 t = true;
@@ -216,9 +230,13 @@ public class UDP_Client : MonoBehaviour {
         if (t == false && ID.Equals(temp.ID) == false) {
             Debug.Log("Receive new Player");
             GameObject tempObj = Instantiate<GameObject>(Resources.Load<GameObject>("NetObj"));
-            tempObj.transform.position = temp.position;
-            tempObj.name = temp.ID.ToString();
-            netObj.Add(tempObj);
+            NetObj tempNetObj = new NetObj {
+                obj = tempObj,
+                ID = temp.ID,
+                followVec = temp.position
+            };
+            tempObj.name = temp.ID.ToString() + "_NetObj";
+            netObjs.Add(tempNetObj);
         }
 
         positionQue.RemoveAt(0);
@@ -239,5 +257,9 @@ public class UDP_Client : MonoBehaviour {
         state = State.Endcommunication;
 
         Debug.Log("[UDP]End communication.");
+    }
+
+    Vector3 LerpPosition(Vector3 prevVec,Vector3 followVec) {
+      return  Vector3.Lerp(prevVec, followVec, 0.5f);
     }
 }
